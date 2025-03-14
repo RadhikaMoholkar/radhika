@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        
+        body {
+            
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .slider-container {
+            position: relative;
+            width: 800%;
+            max-width: 300px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slider-images {
+            display: flex;
+            transition: transform 0.9s ease-in-out;
+        }
+        .slider-images img {
+            width: 100%;
+            border-radius: 20px;
+        }
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 20px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Image Slider</h1>
+
+    <div class="slider-container">
+        <div class="slider-images" id="slider-images">
+            
+        </div>
+
+        <button class="button prev" onclick="prevImage()">&#10094;</button>
+        <button class="button next" onclick="nextImage()">&#10095;</button>
+    </div>
+
+    <script>
+        
+        const images = [
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Wcr6Iow_TTL01ybVCakpmfzCI2eRya08EQ&s',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtOgmAZzEelB4sdEGcTq4AFJHotMPR7Rr2Zg&s',
+            'https://assets.vogue.in/photos/5e0eff40387429000876eebb/2:3/w_2560%2Cc_limit/deepika%2520padukone%2520lessons.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUxPVh8sfUgAteLnFreh-jO2SABvdD0IRpBA&s',
+            'https://blog-res.admitkard.com/blog/wp-content/uploads/2023/05/23235705/Slide-0-Photo-from-Ananyas-Instagram.png',
+        ];
+
+        let currentIndex = 0;
+
+        function loadImages() {
+            const sliderImages = document.getElementById('slider-images');
+            images.forEach(imageUrl => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                sliderImages.appendChild(img);
+            });
+            updateSlider();
+        }
+
+         function updateSlider() {
+            const sliderImages = document.getElementById('slider-images');
+            sliderImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+       
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; 
+            }
+            updateSlider();
+        }
+
+        
+        function prevImage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = images.length - 1; 
+            }
+            updateSlider();
+        }
+
+        loadImages();
+    </script>
+
+</body>
+</html>
